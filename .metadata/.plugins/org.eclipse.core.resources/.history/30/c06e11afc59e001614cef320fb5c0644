@@ -290,7 +290,7 @@ public class SMTPClient
 	          Thread.sleep(delay);
 	          
 	          
-	          // 로그인 하기위한 정보,Base64로 인코딩 후 정보를 보내준다. 
+
 	          String encodedToken =  Base64.encodeBase64String(senderEmail.getBytes());
 	          send("AUTH LOGIN " + encodedToken +"\r\n", outToServer);
 	          Thread.sleep(delay);
