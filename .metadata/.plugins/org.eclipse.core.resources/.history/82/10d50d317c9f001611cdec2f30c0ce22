@@ -211,7 +211,6 @@ public class SendMailUI extends JFrame {
 		  String senderPwd = pwdText.getText();
 		  System.out.println("ppasss : " + senderPwd);
 		  String recieverEmail = receiverText.getText();
-		  System.out.println("recieverEmail : "  + recieverEmail);
 		  String content =  bodyContent.getText();
 		  String sub = subjectText.getText();
 		  /*

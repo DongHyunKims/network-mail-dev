@@ -237,19 +237,18 @@ public class SMTPClient
 	          if(serverLog.equals("Login Error")){
 	        	  return serverLog;
 	          }
-	          /*
+	          
 	          if(hostname.equals("smtp.naver.com")){
 	        	  
-	        	  senderEmail = senderEmail + "naver.com";
-	        	  System.out.println("sender Email : " + senderEmail);
+	        	  senderEmail = senderEmail + "naver.com"
 	        	  
 	          }
-	          */
+	          
 	          
 	          //Send Email
 	          send("MAIL FROM: <"+senderEmail+">\r\n", outToServer);
 	          Thread.sleep(delay);
-	          // Receive Email
+	          // Receive Email.
 	          send("RCPT TO: <"+recieverEmail+">\r\n", outToServer);
 	          Thread.sleep(delay);
 	          //Data Start
@@ -257,10 +256,6 @@ public class SMTPClient
 	          Thread.sleep(delay);
 	          //Subject 
 	          send("Subject: "+subject+"\r\n", outToServer);
-	          Thread.sleep(delay);
-	          send("From: " + senderEmail+"\r\n",outToServer);
-	          Thread.sleep(delay);
-	          send("To: " + recieverEmail+"\r\n",outToServer);
 	          Thread.sleep(delay);
 	          //Content
 	          send(content, outToServer);

@@ -205,13 +205,11 @@ public class SendMailUI extends JFrame {
 	  
 	  //Go btn event method.  
 	  void sendActionPerformed(ActionEvent event) {
-	
+
 		  String hostName = (String)smtpServer.getSelectedItem();
 		  String senderEmail = idText.getText();
 		  String senderPwd = pwdText.getText();
-		  System.out.println("ppasss : " + senderPwd);
 		  String recieverEmail = receiverText.getText();
-		  System.out.println("recieverEmail : "  + recieverEmail);
 		  String content =  bodyContent.getText();
 		  String sub = subjectText.getText();
 		  /*
@@ -230,10 +228,10 @@ public class SendMailUI extends JFrame {
 		  smtpClient.setRecieverEmail(recieverEmail);
 		  smtpClient.setContent(content);
 		  smtpClient.setSubject(sub);
-		  String serverLog = "";
-		  serverLog = smtpClient.connectMail();
+
+		  String serverLog = smtpClient.connectMail();
 		  System.out.println("serverLog " + serverLog );
-		  
+		  serverLogPane.setText("");
 		  serverLogPane.setText(serverLog + "\n");
 		 
 	  }

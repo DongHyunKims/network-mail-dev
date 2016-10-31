@@ -255,12 +255,14 @@ public class SMTPClient
 	          //Data Start
 	          send("DATA\r\n", outToServer);
 	          Thread.sleep(delay);
+	          
+	          
+	          send("From: " + senderEmail,outToServer);
+	          Thread.sleep(delay);
+	          send("To: " + recieverEmail,outToServer);
+	          Thread.sleep(delay);
 	          //Subject 
 	          send("Subject: "+subject+"\r\n", outToServer);
-	          Thread.sleep(delay);
-	          send("From: " + senderEmail+"\r\n",outToServer);
-	          Thread.sleep(delay);
-	          send("To: " + recieverEmail+"\r\n",outToServer);
 	          Thread.sleep(delay);
 	          //Content
 	          send(content, outToServer);
