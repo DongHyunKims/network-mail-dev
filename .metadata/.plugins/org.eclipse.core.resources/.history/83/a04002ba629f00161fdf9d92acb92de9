@@ -85,6 +85,16 @@ public class SMTPClient
 		clientLog = "";
 	}
 
+
+
+
+
+
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "SMTPClient [hostname=" + hostname + ", port=" + port
@@ -186,7 +196,7 @@ public class SMTPClient
 			selectPort(hostname);
 			//createSokcket 메소드 호출을 통해 SSLSocket 인스턴스를 생성할 수 있다. 
 			sock = (SSLSocket) sslsocketfactory.createSocket(hostname, port);
-	         //서버로 부터 가져온다. 서버의 log를 남기기 위한통로.
+	         //서버로 부터 가져온다. 서버의 log를 남기기 위한 통
 	         inFromServer = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 	         
 	         //서버의 로그를 남길 쓰레드를 생성한다.

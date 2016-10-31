@@ -118,7 +118,7 @@ public class SendMailUI extends JFrame {
 	    subjectText.setBounds(96, 120, 300, 24);
 	    
 	    
-	    String [] smtpHostList = { "smtp.gmail.com", "smtp.mail.daum.net", "smtp.naver.com"};
+	    String [] smtpHostList = { "smtp.gmail.com", "smtp.mail.daum.com", "smtp.naver.com"};
 	    smtpServer = new JComboBox(smtpHostList);
 	    getContentPane().add(smtpServer);
 	    smtpServer.setBounds(96, 156, 300, 24);
