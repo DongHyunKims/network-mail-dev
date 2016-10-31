@@ -159,9 +159,9 @@ public class SendMailUI extends JFrame {
 	    getContentPane().add(serverLogPane);
 	    serverLogPane.setBounds(408, 12, 309, 323);
 
-	    ActionCheck actionCheck = new ActionCheck();
-	    sendBtn.addActionListener(actionCheck);
-	    cancelBtn.addActionListener(actionCheck);
+	    SymAction lSymAction = new SymAction();
+	    sendBtn.addActionListener(lSymAction);
+	    cancelBtn.addActionListener(lSymAction);
 	    //defaultmodel = new DefaultListModel();
 	    //outputList.setModel(defaultmodel);
 	    //defaultmodel.addElement("Server output displayed here:");
