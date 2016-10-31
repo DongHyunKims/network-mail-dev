@@ -113,166 +113,110 @@ public class SMTPClient
 
 
 
-
-
-
-
-
-
-
-
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-
-
-
-
-
-
-
-
-
 
 
 	public String getServerLog() {
 		return serverLog;
 	}
 
-
-
-
 	public void setServerLog(String serverLog) {
 		this.serverLog = serverLog;
 	}
-
-
-
 
 	public String getClientLog() {
 		return clientLog;
 	}
 
-
-
-
 	public void setClientLog(String clientLog) {
 		this.clientLog = clientLog;
 	}
-
-
-
 
 	public String getHostname() {
 		return hostname;
 	}
 
-
-
-
 	public void setHostname(String hostname) {
 		this.hostname = hostname;
 	}
-
-
-
-
+	
 	public int getPort() {
 		return port;
 	}
-
-
-
 
 	public void setPort(int port) {
 		this.port = port;
 	}
 
-
-
-
 	public String getSenderEmail() {
 		return senderEmail;
 	}
-
-
-
 
 	public void setSenderEmail(String senderEmail) {
 		this.senderEmail = senderEmail;
 	}
 
-
-
-
 	public String getSenderPassword() {
 		return senderPassword;
 	}
 
-
-
-
 	public void setSenderPassword(String senderPassword) {
 		this.senderPassword = senderPassword;
 	}
-
-
-
-
+	
 	public String getRecieverEmail() {
 		return recieverEmail;
 	}
 
-
-
-
 	public void setRecieverEmail(String reciever) {
 		this.recieverEmail = reciever;
 	}
-
-
-
-
+	
 	public String getContent() {
 		return content;
 	}
-
-
-
 
 	public void setContent(String content) {
 		this.content = content;
 	}
 
 
-
-
 	public String connectMail(){
-    	 int delay =500;
-
+    	//딜레이 0.5  
+		int delay =500;
+			
+		  //보안소켓을 생성하기 위한 객체 팩토리이다.
           SSLSocketFactory sslsocketfactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
           //SSLSocket sock;
           
           
 		try {
 			selectPort(hostname);
+			//createSokcket 메소드 호출을 통해 SSLSocket 인스턴스를 생성할 수 있다. 
 			sock = (SSLSocket) sslsocketfactory.createSocket(hostname, port);
-	          //서버로 부터 가져온다. 
+	         //서버로 부터 가져온다. 서버의 log를 남기기 위한 통
 	         inFromServer = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-	          (new Thread(new Runnable()
+	         
+	         //서버의 로그를 남길 쓰레드를 생성한다.
+	          Thread tr = new Thread(new Runnable()
 	          {
 	               public void run()
 	               {
 	                    try
 	                    {
-	                 
-	                    	String tempLine = "";                    	
+	                    	
+	                    	String tempLine = "";     
+	                    	//inFromServer 통로를 통해 서버의 응답을 받아온다. 
 	                         while((tempLine = inFromServer.readLine()) != null){     	 
+	                        	 //여러가지 예외처리가 필요하다. 
 	                        	 if(tempLine.startsWith("535-5.7.8")){
 	                        		 serverLog = "SEVER : Login Error"; 
 	                        		 break;
 	                        	 }                     	 
 	                        	 System.out.println("SERVER: "+tempLine);
+	                        	 //받아온 응답을 모아서 로그로 만든다.
 	                        	 serverLog += "SEVER : " + tempLine + "\n";
 	                         }
 	                    }
@@ -281,12 +225,15 @@ public class SMTPClient
 	                         e.printStackTrace();
 	                    }
 	               }
-	          })).start();
+	          });
 	          
-	        
+	          tr.start();
+	          
+	          //메일 서버로 나가는 통로. 
 	          outToServer = new DataOutputStream(sock.getOutputStream());
 	          
 	          send("EHLO "+ hostname+"\r\n",outToServer);
+	          //스레드를 대기상태로 만들어준다.
 	          Thread.sleep(delay);
 	          
 	          
@@ -337,22 +284,20 @@ public class SMTPClient
 			e.printStackTrace();
 		}
 		
-
          return serverLog;
      }
-     
+     //메세지를 보내는 메소드.
      private void send(String s, DataOutputStream ots) throws Exception
      {
-    	 
-    	
-    	 
+    	  
     	 ots.writeBytes(s);
-    	 clientLog += s + "\n";
+    	 //클라이언트 로그도 만들어 준다.
+    	 clientLog +="Client : " + s + "\n";
          System.out.println("CLIENT: "+s);
         
      }
      
-     
+     //포트선택 메소드.
      private void selectPort(String hostName){
     	 
     	 if(hostName.equals("smtp.gmail.com") | hostName.equals("smtp.mail.yahoo.com") | hostName.equals("smtp.naver.com")){
@@ -361,7 +306,7 @@ public class SMTPClient
     	 
 
      }
-     
+     //모든 통로 및 소켓을 닫는 메소드 
      public void closeAll(){
   
     	 try {

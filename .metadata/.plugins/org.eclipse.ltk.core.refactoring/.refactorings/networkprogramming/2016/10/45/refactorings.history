@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;com.mail.client.SendMail.java&apos; to &apos;SendMailUI.java&apos;&#x0A;- Original project: &apos;networkprogramming&apos;&#x0A;- Original element: &apos;com.mail.client.SendMail.java&apos;&#x0A;- Renamed element: &apos;com.mail.client.SendMailUI.java&apos;" description="Rename compilation unit &apos;SendMail.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;com.mail.client{SendMail.java" name="SendMailUI.java" references="false" stamp="1477910263541" version="1.0"/>
+</session>
