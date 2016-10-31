@@ -47,7 +47,7 @@ public class SendMailUI extends JFrame {
 		  
 	    setTitle("Mail");
 	    getContentPane().setLayout(null);
-	    setSize(736, 380);
+	    setSize(740, 400);
 	    setVisible(false);
 	    
 	    

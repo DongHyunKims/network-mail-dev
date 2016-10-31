@@ -201,7 +201,9 @@ public class SMTPClient
 	                    	//In From Server. Server response 
 	                         while((tempLine = inFromServer.readLine()) != null){     	 
 	                        	
-	                        	 if(tempLine.startsWith("535-5.7.8")){
+	                        	 if(tempLine.startsWith("535-5.7.8")||
+	                        			 tempLine.startsWith("502 5.5.1") || 
+	                        			 tempLine.startsWith("535")){
 	                        		 serverLog = "SEVER : Login Error"; 
 	                        		 break;
 	                        	 }                     	 
