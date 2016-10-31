@@ -1,6 +1,6 @@
 package com.mail.client;
 
-
+//
 import java.awt.*;
 
 import javax.swing.*;
@@ -175,14 +175,14 @@ public class SendMailUI extends JFrame {
 	    
 	  }
 
-	  //window 창이 뜨는 위치.
+	  //window 李쎌씠 �쑉�뒗 �쐞移�.
 	  public void setVisible(boolean check) {
 	    if (check)
 	      setLocation(50, 50);
 	    super.setVisible(check);
 	  }
 
-	//메인 메소드 
+	//硫붿씤 硫붿냼�뱶 
 	  static public void main(String args[]) {
 	    SendMailUI ui = new SendMailUI();
 	    ui.setVisible(true);
@@ -203,7 +203,7 @@ public class SendMailUI extends JFrame {
 	
 
 	  
-	  //Go 버튼을 눌렀을 경우. 
+	  //Go 踰꾪듉�쓣 �닃���쓣 寃쎌슦. 
 	  void sendActionPerformed(ActionEvent event) {
 
 		  String hostName = (String)smtpServer.getSelectedItem();
@@ -239,7 +239,7 @@ public class SendMailUI extends JFrame {
 
 	  
 	  
-	  //Cancel 버튼을 누를시 프로그램 종료. 
+	  //Cancel 踰꾪듉�쓣 �늻瑜쇱떆 �봽濡쒓렇�옩 醫낅즺. 
 	  void cancelActionPerformed(java.awt.event.ActionEvent event) {
 		  System.out.println("Close Mail Program");
 		  if(smtpClient != null){
