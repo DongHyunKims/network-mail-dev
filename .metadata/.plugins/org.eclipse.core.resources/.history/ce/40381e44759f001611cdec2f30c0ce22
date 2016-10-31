@@ -174,22 +174,22 @@ public class SMTPClient
 
 
 	public String connectMail(){
-    	//0.5 sec delay 
+    	//�뵜�젅�씠 0.5  
 		int delay =500;
 			
-		  
+		  //蹂댁븞�냼耳볦쓣 �깮�꽦�븯湲� �쐞�븳 媛앹껜 �뙥�넗由ъ씠�떎.
           SSLSocketFactory sslsocketfactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
           //SSLSocket sock;
           
           
 		try {
 			selectPort(hostname);
-			//createSokcket method make SSLSocket instance
+			//createSokcket 硫붿냼�뱶 �샇異쒖쓣 �넻�빐 SSLSocket �씤�뒪�꽩�뒪瑜� �깮�꽦�븷 �닔 �엳�떎. 
 			sock = (SSLSocket) sslsocketfactory.createSocket(hostname, port);
-	       
+	         //�꽌踰꾨줈 遺��꽣 媛��졇�삩�떎. �꽌踰꾩쓽 log瑜� �궓湲곌린 �쐞�븳�넻濡�.
 	         inFromServer = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 	         
-	         //Thread start
+	         //�꽌踰꾩쓽 濡쒓렇瑜� �궓湲� �벐�젅�뱶瑜� �깮�꽦�븳�떎.
 	          Thread tr = new Thread(new Runnable()
 	          {
 	               public void run()
@@ -198,15 +198,15 @@ public class SMTPClient
 	                    {
 	                    	
 	                    	String tempLine = "";     
-	                    	//In From Server. Server response 
+	                    	//inFromServer �넻濡쒕�� �넻�빐 �꽌踰꾩쓽 �쓳�떟�쓣 諛쏆븘�삩�떎. 
 	                         while((tempLine = inFromServer.readLine()) != null){     	 
-	                        	
+	                        	 //�뿬�윭媛�吏� �삁�쇅泥섎━媛� �븘�슂�븯�떎. 
 	                        	 if(tempLine.startsWith("535-5.7.8")){
 	                        		 serverLog = "SEVER : Login Error"; 
 	                        		 break;
 	                        	 }                     	 
 	                        	 System.out.println("SERVER: "+tempLine);
-	                        	 //Collect server resonse and make server log
+	                        	 //諛쏆븘�삩 �쓳�떟�쓣 紐⑥븘�꽌 濡쒓렇濡� 留뚮뱺�떎.
 	                        	 serverLog += "SEVER : " + tempLine + "\n";
 	                         }
 	                    }
@@ -219,15 +219,15 @@ public class SMTPClient
 	          
 	          tr.start();
 	          
-	          //Out to server  
+	          //硫붿씪 �꽌踰꾨줈 �굹媛��뒗 �넻濡�. 
 	          outToServer = new DataOutputStream(sock.getOutputStream());
 	          
 	          send("EHLO "+ hostname+"\r\n",outToServer);
-	          //0.5sec wait
+	          //�뒪�젅�뱶瑜� ��湲곗긽�깭濡� 留뚮뱾�뼱以��떎.
 	          Thread.sleep(delay);
 	          
 	          
-	          //Auth Login
+	          // 濡쒓렇�씤 �븯湲곗쐞�븳 �젙蹂�,Base64濡� �씤肄붾뵫 �썑 �젙蹂대�� 蹂대궡以��떎. 
 	          String encodedToken =  Base64.encodeBase64String(senderEmail.getBytes());
 	          send("AUTH LOGIN " + encodedToken +"\r\n", outToServer);
 	          Thread.sleep(delay);
@@ -237,24 +237,25 @@ public class SMTPClient
 	          if(serverLog.equals("Login Error")){
 	        	  return serverLog;
 	          }
-	          //Send Email
+	          //蹂대궡�뒗 �씠硫붿씪 二쇱냼 
 	          send("MAIL FROM: <"+senderEmail+">\r\n", outToServer);
 	          Thread.sleep(delay);
-	          // Receive Email.
+	          //諛쏅뒗 �씠硫붿씪 二쇱냼 
 	          send("RCPT TO: <"+recieverEmail+">\r\n", outToServer);
 	          Thread.sleep(delay);
-	          //Data Start
+	          //�뜲�씠�꽣
 	          send("DATA\r\n", outToServer);
 	          Thread.sleep(delay);
-	          //Subject 
+	          //�젣紐�
 	          send("Subject: "+subject+"\r\n", outToServer);
 	          Thread.sleep(delay);
-	          //Content
+	          //�궡�슜
 	          send(content, outToServer);
 	          Thread.sleep(delay);
-	          //end
+	          //硫붿꽭吏��쓽 留덉�留됱쓣 �굹���깂 
 	          send("\r\n.\r\n", outToServer);
 	          Thread.sleep(delay);
+	          //�걹 
 	          send("QUIT\r\n", outToServer);
 	          
 	          
@@ -275,18 +276,18 @@ public class SMTPClient
 		
          return serverLog;
      }
-     //Commend send method
+     //硫붿꽭吏�瑜� 蹂대궡�뒗 硫붿냼�뱶.
      private void send(String s, DataOutputStream ots) throws Exception
      {
     	  
     	 ots.writeBytes(s);
-    	 //create client log
+    	 //�겢�씪�씠�뼵�듃 濡쒓렇�룄 留뚮뱾�뼱 以��떎.
     	 clientLog +="Client : " + s + "\n";
          System.out.println("CLIENT: "+s);
         
      }
      
-     //Select Port method
+     //�룷�듃�꽑�깮 硫붿냼�뱶.
      private void selectPort(String hostName){
     	 
     	 if(hostName.equals("smtp.gmail.com") | hostName.equals("smtp.daum.net") | hostName.equals("smtp.naver.com")){
@@ -295,7 +296,7 @@ public class SMTPClient
     	 
 
      }
-     //all socket, datastream close method
+     //紐⑤뱺 �넻濡� 諛� �냼耳볦쓣 �떕�뒗 硫붿냼�뱶 
      public void closeAll(){
   
     	 try {

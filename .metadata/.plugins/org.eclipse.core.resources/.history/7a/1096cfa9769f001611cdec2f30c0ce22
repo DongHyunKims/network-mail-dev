@@ -175,14 +175,14 @@ public class SendMailUI extends JFrame {
 	    
 	  }
 
-	  //window position setting method
+	  //window 李쎌씠 �쑉�뒗 �쐞移�.
 	  public void setVisible(boolean check) {
 	    if (check)
 	      setLocation(50, 50);
 	    super.setVisible(check);
 	  }
 
-	//main method 
+	//硫붿씤 硫붿냼�뱶 
 	  static public void main(String args[]) {
 	    SendMailUI ui = new SendMailUI();
 	    ui.setVisible(true);
@@ -203,7 +203,7 @@ public class SendMailUI extends JFrame {
 	
 
 	  
-	  //Go btn event method.  
+	  //Excute pressed go btn.  
 	  void sendActionPerformed(ActionEvent event) {
 
 		  String hostName = (String)smtpServer.getSelectedItem();

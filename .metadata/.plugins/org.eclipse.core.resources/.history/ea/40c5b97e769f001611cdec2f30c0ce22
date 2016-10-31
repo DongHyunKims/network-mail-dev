@@ -186,7 +186,7 @@ public class SMTPClient
 			selectPort(hostname);
 			//createSokcket method make SSLSocket instance
 			sock = (SSLSocket) sslsocketfactory.createSocket(hostname, port);
-	       
+	         //�꽌踰꾨줈 遺��꽣 媛��졇�삩�떎. �꽌踰꾩쓽 log瑜� �궓湲곌린 �쐞�븳�넻濡�.
 	         inFromServer = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 	         
 	         //Thread start

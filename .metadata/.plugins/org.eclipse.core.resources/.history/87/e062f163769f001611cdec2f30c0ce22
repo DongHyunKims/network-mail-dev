@@ -186,7 +186,7 @@ public class SMTPClient
 			selectPort(hostname);
 			//createSokcket method make SSLSocket instance
 			sock = (SSLSocket) sslsocketfactory.createSocket(hostname, port);
-	       
+	         //�꽌踰꾨줈 遺��꽣 媛��졇�삩�떎. �꽌踰꾩쓽 log瑜� �궓湲곌린 �쐞�븳�넻濡�.
 	         inFromServer = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 	         
 	         //Thread start
@@ -286,7 +286,7 @@ public class SMTPClient
         
      }
      
-     //Select Port method
+     //�룷�듃�꽑�깮 硫붿냼�뱶.
      private void selectPort(String hostName){
     	 
     	 if(hostName.equals("smtp.gmail.com") | hostName.equals("smtp.daum.net") | hostName.equals("smtp.naver.com")){
@@ -295,7 +295,7 @@ public class SMTPClient
     	 
 
      }
-     //all socket, datastream close method
+     //紐⑤뱺 �넻濡� 諛� �냼耳볦쓣 �떕�뒗 硫붿냼�뱶 
      public void closeAll(){
   
     	 try {

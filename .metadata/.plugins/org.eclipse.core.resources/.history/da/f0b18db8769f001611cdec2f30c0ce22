@@ -175,7 +175,7 @@ public class SendMailUI extends JFrame {
 	    
 	  }
 
-	  //window position setting method
+	  //window position method
 	  public void setVisible(boolean check) {
 	    if (check)
 	      setLocation(50, 50);
