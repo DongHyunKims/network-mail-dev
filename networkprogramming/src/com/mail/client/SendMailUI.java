@@ -19,7 +19,7 @@ public class SendMailUI extends JFrame {
 	  private JLabel subLabel;
 	  private JLabel smtpLabel;	  
 	  private JTextField idText;	  
-	  private JTextField pwdText;
+	  private JPasswordField pwdText;
 	  private JTextField senderText;
 	  private JTextField receiverText;
 	  private JTextField subjectText;
@@ -99,7 +99,7 @@ public class SendMailUI extends JFrame {
 	    getContentPane().add(idText);
 	    idText.setBounds(96, 12, 300, 24);
 	    	    
-	    pwdText = new JTextField();
+	    pwdText = new JPasswordField();
 	    getContentPane().add(pwdText);
 	    pwdText.setBounds(96, 48, 300, 24);
 	    
@@ -118,7 +118,7 @@ public class SendMailUI extends JFrame {
 	    subjectText.setBounds(96, 120, 300, 24);
 	    
 	    
-	    String [] smtpHostList = { "smtp.gmail.com", "smtp.mail.daum.net", "smtp.naver.com"};
+	    String [] smtpHostList = { "smtp.gmail.com", "smtp.daum.net", "smtp.naver.com"};
 	    smtpServer = new JComboBox(smtpHostList);
 	    getContentPane().add(smtpServer);
 	    smtpServer.setBounds(96, 156, 300, 24);

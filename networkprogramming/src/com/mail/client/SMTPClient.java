@@ -174,22 +174,22 @@ public class SMTPClient
 
 
 	public String connectMail(){
-    	//딜레이 0.5  
+    	//�뵜�젅�씠 0.5  
 		int delay =500;
 			
-		  //보안소켓을 생성하기 위한 객체 팩토리이다.
+		  //蹂댁븞�냼耳볦쓣 �깮�꽦�븯湲� �쐞�븳 媛앹껜 �뙥�넗由ъ씠�떎.
           SSLSocketFactory sslsocketfactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
           //SSLSocket sock;
           
           
 		try {
 			selectPort(hostname);
-			//createSokcket 메소드 호출을 통해 SSLSocket 인스턴스를 생성할 수 있다. 
+			//createSokcket 硫붿냼�뱶 �샇異쒖쓣 �넻�빐 SSLSocket �씤�뒪�꽩�뒪瑜� �깮�꽦�븷 �닔 �엳�떎. 
 			sock = (SSLSocket) sslsocketfactory.createSocket(hostname, port);
-	         //서버로 부터 가져온다. 서버의 log를 남기기 위한통로.
+	         //�꽌踰꾨줈 遺��꽣 媛��졇�삩�떎. �꽌踰꾩쓽 log瑜� �궓湲곌린 �쐞�븳�넻濡�.
 	         inFromServer = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 	         
-	         //서버의 로그를 남길 쓰레드를 생성한다.
+	         //�꽌踰꾩쓽 濡쒓렇瑜� �궓湲� �벐�젅�뱶瑜� �깮�꽦�븳�떎.
 	          Thread tr = new Thread(new Runnable()
 	          {
 	               public void run()
@@ -198,15 +198,15 @@ public class SMTPClient
 	                    {
 	                    	
 	                    	String tempLine = "";     
-	                    	//inFromServer 통로를 통해 서버의 응답을 받아온다. 
+	                    	//inFromServer �넻濡쒕�� �넻�빐 �꽌踰꾩쓽 �쓳�떟�쓣 諛쏆븘�삩�떎. 
 	                         while((tempLine = inFromServer.readLine()) != null){     	 
-	                        	 //여러가지 예외처리가 필요하다. 
+	                        	 //�뿬�윭媛�吏� �삁�쇅泥섎━媛� �븘�슂�븯�떎. 
 	                        	 if(tempLine.startsWith("535-5.7.8")){
 	                        		 serverLog = "SEVER : Login Error"; 
 	                        		 break;
 	                        	 }                     	 
 	                        	 System.out.println("SERVER: "+tempLine);
-	                        	 //받아온 응답을 모아서 로그로 만든다.
+	                        	 //諛쏆븘�삩 �쓳�떟�쓣 紐⑥븘�꽌 濡쒓렇濡� 留뚮뱺�떎.
 	                        	 serverLog += "SEVER : " + tempLine + "\n";
 	                         }
 	                    }
@@ -219,15 +219,15 @@ public class SMTPClient
 	          
 	          tr.start();
 	          
-	          //메일 서버로 나가는 통로. 
+	          //硫붿씪 �꽌踰꾨줈 �굹媛��뒗 �넻濡�. 
 	          outToServer = new DataOutputStream(sock.getOutputStream());
 	          
 	          send("EHLO "+ hostname+"\r\n",outToServer);
-	          //스레드를 대기상태로 만들어준다.
+	          //�뒪�젅�뱶瑜� ��湲곗긽�깭濡� 留뚮뱾�뼱以��떎.
 	          Thread.sleep(delay);
 	          
 	          
-	          // 로그인 하기위한 정보,Base64로 인코딩 후 정보를 보내준다. 
+	          // 濡쒓렇�씤 �븯湲곗쐞�븳 �젙蹂�,Base64濡� �씤肄붾뵫 �썑 �젙蹂대�� 蹂대궡以��떎. 
 	          String encodedToken =  Base64.encodeBase64String(senderEmail.getBytes());
 	          send("AUTH LOGIN " + encodedToken +"\r\n", outToServer);
 	          Thread.sleep(delay);
@@ -237,25 +237,25 @@ public class SMTPClient
 	          if(serverLog.equals("Login Error")){
 	        	  return serverLog;
 	          }
-	          //보내는 이메일 주소 
+	          //蹂대궡�뒗 �씠硫붿씪 二쇱냼 
 	          send("MAIL FROM: <"+senderEmail+">\r\n", outToServer);
 	          Thread.sleep(delay);
-	          //받는 이메일 주소 
+	          //諛쏅뒗 �씠硫붿씪 二쇱냼 
 	          send("RCPT TO: <"+recieverEmail+">\r\n", outToServer);
 	          Thread.sleep(delay);
-	          //데이터
+	          //�뜲�씠�꽣
 	          send("DATA\r\n", outToServer);
 	          Thread.sleep(delay);
-	          //제목
+	          //�젣紐�
 	          send("Subject: "+subject+"\r\n", outToServer);
 	          Thread.sleep(delay);
-	          //내용
+	          //�궡�슜
 	          send(content, outToServer);
 	          Thread.sleep(delay);
-	          //메세지의 마지막을 나타냄 
+	          //硫붿꽭吏��쓽 留덉�留됱쓣 �굹���깂 
 	          send("\r\n.\r\n", outToServer);
 	          Thread.sleep(delay);
-	          //끝 
+	          //�걹 
 	          send("QUIT\r\n", outToServer);
 	          
 	          
@@ -276,27 +276,27 @@ public class SMTPClient
 		
          return serverLog;
      }
-     //메세지를 보내는 메소드.
+     //硫붿꽭吏�瑜� 蹂대궡�뒗 硫붿냼�뱶.
      private void send(String s, DataOutputStream ots) throws Exception
      {
     	  
     	 ots.writeBytes(s);
-    	 //클라이언트 로그도 만들어 준다.
+    	 //�겢�씪�씠�뼵�듃 濡쒓렇�룄 留뚮뱾�뼱 以��떎.
     	 clientLog +="Client : " + s + "\n";
          System.out.println("CLIENT: "+s);
         
      }
      
-     //포트선택 메소드.
+     //�룷�듃�꽑�깮 硫붿냼�뱶.
      private void selectPort(String hostName){
     	 
-    	 if(hostName.equals("smtp.gmail.com") | hostName.equals("smtp.mail.yahoo.com") | hostName.equals("smtp.naver.com")){
+    	 if(hostName.equals("smtp.gmail.com") | hostName.equals("smtp.daum.net") | hostName.equals("smtp.naver.com")){
     		 port = 465;
     	 }
     	 
 
      }
-     //모든 통로 및 소켓을 닫는 메소드 
+     //紐⑤뱺 �넻濡� 諛� �냼耳볦쓣 �떕�뒗 硫붿냼�뱶 
      public void closeAll(){
   
     	 try {
